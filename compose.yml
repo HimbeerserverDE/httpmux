@@ -1,0 +1,21 @@
+networks:
+  httpsvc:
+    name: httpsvc
+    external: true
+services:
+  httpmux:
+    build: .
+    container_name: httpmux
+    networks:
+      - httpsvc
+    volumes:
+      - type: bind
+        source: ./ssl/server.crt
+        target: /usr/local/apache2/ssl/server.crt
+      - type: bind
+        source: ./ssl/server.key
+        target: /usr/local/apache2/ssl/server.key
+      - type: bind
+        source: ./.well-known
+        target: /usr/local/apache2/htdocs/.well-known
+    restart: always
