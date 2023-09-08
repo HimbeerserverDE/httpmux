@@ -11,6 +11,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "8008:80"
+      - "8448:443"
     restart: unless-stopped
     volumes:
       - type: bind
