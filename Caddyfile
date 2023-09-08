@@ -1,16 +1,12 @@
-{
-	auto_https off
-}
-
-http://himbeerserver.de {
+himbeerserver.de {
 	reverse_proxy /_matrix/* synapse:8008
 	reverse_proxy www:80
 }
 
-http://www.himbeerserver.de {
+www.himbeerserver.de {
 	redir {scheme}://himbeerserver.de{uri} permanent
 }
 
-http://git.himbeerserver.de {
+git.himbeerserver.de {
 	reverse_proxy gitweb:80
 }
