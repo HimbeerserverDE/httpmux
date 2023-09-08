@@ -4,18 +4,21 @@ networks:
     external: true
 services:
   httpmux:
-    build: .
     container_name: httpmux
+    image: caddy:2.7.4-alpine
     networks:
       - httpsvc
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
     volumes:
       - type: bind
-        source: ./ssl/server.crt
-        target: /usr/local/apache2/ssl/server.crt
-      - type: bind
-        source: ./ssl/server.key
-        target: /usr/local/apache2/ssl/server.key
-      - type: bind
-        source: ./.well-known
-        target: /usr/local/apache2/htdocs/.well-known
-    restart: always
+        source: Caddyfile
+        target: /etc/caddy/Caddyfile
+      - httpmux_config:/config
+      - httpmux_data:/data
+volumes:
+  httpmux_config:
+  httpmux_data:
+    external: true
