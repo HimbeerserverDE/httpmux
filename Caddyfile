@@ -3,6 +3,7 @@
 }
 
 http://himbeerserver.de {
+	reverse_proxy /_matrix/* synapse:8008
 	reverse_proxy www:80
 }
 
